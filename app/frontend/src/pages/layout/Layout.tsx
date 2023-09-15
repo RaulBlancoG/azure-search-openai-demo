@@ -7,26 +7,24 @@ import Swal from 'sweetalert2';
 const Layout = () => {
   const [selectedFeedback, setSelectedFeedback] = useState("Feedback"); // Inicialmente, se selecciona "Feedback"
 
-  const feedbackOptions = ["Report a problem", "Make a suggestion", "Share an idea"];
+  const feedbackOptions = ["Report a problem", "Make a suggestion", "Propose a new idea"];
 
   const handleFeedbackChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    console.log("Opción seleccionada:", selectedValue);
-
     // Abre un modal de Swal cuando se selecciona "Make a suggestion"
-    if (selectedValue === "make_a_suggestion") {
+    if (selectedValue === "propose_a_new_idea") {
       window.open(
-        "https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=IKg7l1hKRkKEvxcOULMVKgaikAIJ2B9IlnsanlMdSlpUQU9TWjhGUVQyVkoyVTgxM0NVNEE2NTVKOC4u"
+        "https://forms.office.com/r/KjzBHsDjmX"
       );
     }
-    else if(selectedValue === "share_an_idea"){
+    else if(selectedValue === "make_a_suggestion"){
       window.open(
-        "https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=IKg7l1hKRkKEvxcOULMVKgaikAIJ2B9IlnsanlMdSlpUQjVMNVU0VUg4M0xFWDVaR05aRURSVlpGQS4u"
+        "https://forms.office.com/r/2FiSfUmcTz"
       );
     }
     else if(selectedValue === "report_a_problem"){
       window.open(
-        "https://forms.office.com/Pages/DesignPageV2.aspx?subpage=design&FormId=IKg7l1hKRkKEvxcOULMVKgaikAIJ2B9IlnsanlMdSlpUOEJXSksyUFBENDBRTlo5NVJHNEJXRllPQS4u"
+        "https://forms.office.com/r/02LMi34ihP"
       );
     }
 

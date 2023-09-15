@@ -139,7 +139,7 @@ const Chat = () => {
                         <div className={styles.chatEmptyState}>
                             {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
                             <img src={gb} alt="Diamond" height="120" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with GB data</h1>
+                            <h1 className={styles.chatEmptyStateTitle}>Chat with GB AI expert</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Just ask or try an example</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>

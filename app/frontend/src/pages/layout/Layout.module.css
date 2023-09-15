@@ -31,7 +31,7 @@
 
 .headerTitle {
     margin-left: 12px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .headerNavList {
@@ -60,12 +60,16 @@
 }
 
 .headerNavLeftMargin {
-    margin-left: 20px;
+    margin-left: -10px;
+    height: 30%;
+    width: 30%;
 }
 
 .headerRightText {
-    font-weight: normal;
+    font-weight: 500;
     margin-left: 40px;
+    font-size: 16px;
+    text-decoration: underline;
 }
 
 .microsoftLogo {
@@ -83,19 +87,20 @@
     color: white;
     border: none;
     padding: 10px 20px;
+    width: 20%;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
     position: relative; /* Permite posicionar el ícono desplegable */
     display: inline-block;
-  }
-  
-  .feedbackButton:hover {
+}
+
+.feedbackButton:hover {
     background-color: #ff5555;
-  }
-  
-  /* Estilo para el ícono desplegable del select */
-  .feedbackButton::after {
+}
+.feedbackText{text-align: center;}
+/* Estilo para el ícono desplegable del select */
+.feedbackButton::after {
     content: "\25BC"; /* Código del carácter Unicode para una flecha hacia abajo */
     position: absolute;
     top: 50%;
@@ -103,29 +108,29 @@
     transform: translateY(-50%);
     color: white;
     font-size: 16px;
-  }
-  
-  /* Estilo para el select */
-  .feedbackSelect {
+}
+
+/* Estilo para el select */
+.feedbackSelect {
     appearance: none; /* Oculta el control nativo del select */
     background-color: red;
     color: white;
     border: none;
-    padding: 10px 30px 10px 20px; /* Aumenta el espacio a la derecha para el ícono */
+    padding: 10px 20px; /* Ajusta el espacio de relleno a tu preferencia */
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  /* Estilo para las opciones del select */
-  .feedbackSelectOption {
+    width: 150px; /* Ajusta el ancho deseado */
+}
+
+/* Estilo para las opciones del select */
+.feedbackSelectOption {
     background-color: white;
     color: #333;
     padding: 5px 10px;
-  }
-  
-  .feedbackSelectOption:hover {
+}
+
+.feedbackSelectOption:hover {
     background-color: #f0f0f0;
     color: #007bff;
-  }
-  
+}

@@ -2,8 +2,15 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    background-color: #f2f2f2; /* Color de fondo sólido */
+    background-position: left;
+    background-position-x: 0%;
+    height: auto;
+    width: auto;
+    background-repeat: no-repeat;
+    background-size: 10%;
+    margin-top: auto;
+
+    /*background-image: linear-gradient(to center, rgb(36, 137, 44, 0.61)), white;  Color de fondo sólido */
 }
 
 .chatRoot {
@@ -17,6 +24,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .chatEmptyState {
@@ -35,12 +43,30 @@
     margin-top: 0;
     margin-bottom: 30px;
     color: rgb(50, 50, 50);
+    opacity: 0;
+    animation: appear 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 3vh;
+    text-align: center;
+    margin-right: 12%;
+    color: rgb(249, 243, 243);
+    font-size: 7vh;
 }
 
 .chatEmptyStateSubtitle {
     font-weight: 600;
     margin-bottom: 10px;
     color: rgb(50, 50, 50);
+    opacity: 0;
+    animation: appear 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 3vh;
+    text-align: center;
+    margin-right: 12%;
+    color: rgb(249, 243, 243);
+    font-size: 3.5vh;
 }
 
 @media only screen and (max-height: 780px) {
@@ -64,6 +90,10 @@
     padding-right: 24px;
     display: flex;
     flex-direction: column;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
 }
 
 .chatMessageGpt {
@@ -82,15 +112,18 @@
     position: sticky;
     bottom: 0;
     flex: 0 0 100px;
-    padding-top: 12px;
-    padding-bottom: 24px;
-    padding-left: 24px;
-    padding-right: 24px;
-    width: 100%;   
+    padding-top: 16px;
+    padding-bottom: 28px;
+    padding-left: 28px;
+    padding-right: 28px;
+    width: 100%;
     max-width: 1028px;
-    background: #f2f2f2;
+    border-radius: 15px;
 }
-
+/*.chatInput:hover {
+    box-shadow: 10px 5px 5px rgba(7, 7, 7, 0.14), 10px 5px 5px rgba(0, 0, 0, 0.12);
+    outline: 3px solid rgba(115, 118, 225, 1);
+}*/
 .chatAnalysisPanel {
     flex: 1;
     overflow-y: auto;
@@ -115,4 +148,14 @@
 .commandButton {
     margin-right: 20px;
     margin-bottom: 20px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        width: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

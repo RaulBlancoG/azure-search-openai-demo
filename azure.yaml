@@ -32,3 +32,5 @@ hooks:
         run: ./scripts/prepdocs.sh
         interactive: true
         continueOnError: false
+
+

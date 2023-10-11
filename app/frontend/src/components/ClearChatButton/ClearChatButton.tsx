@@ -12,8 +12,8 @@ interface Props {
 export const ClearChatButton = ({ className, disabled, onClick }: Props) => {
     return (
         <div className={`${styles.container} ${className ?? ""} ${disabled && styles.disabled}`} onClick={onClick}>
-            <Delete24Regular />
-            <Text>{"Clear chat"}</Text>
+            <Delete24Regular style={{ color: "black", marginTop: "2vh" }}/>
+            <Text style={{ color: "white", fontSize: "2vh", marginTop: "2vh" }}>{"Clear chat"}</Text>
         </div>
     );
 };

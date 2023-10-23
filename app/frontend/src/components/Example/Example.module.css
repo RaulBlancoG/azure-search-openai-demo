@@ -10,8 +10,11 @@
 
 .example {
     word-break: break-word;
-    background: #dbdbdb;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(5px);
+    border: 1.5px solid rgba(209, 213, 219, 0.3);
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -20,16 +23,18 @@
 }
 
 .example:hover {
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 10px 5px 5px rgba(7, 7, 7, 0.14), 10px 5px 5px rgba(0, 0, 0, 0.12);
     outline: 2px solid rgba(115, 118, 225, 1);
 }
 
 .exampleText {
-    margin: 0;
+    margin: auto;
     font-size: 22px;
     width: 280px;
     height: 100px;
     color: rgb(33, 33, 33);
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @media only screen and (max-height: 780px) {

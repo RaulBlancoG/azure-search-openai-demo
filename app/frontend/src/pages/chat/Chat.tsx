@@ -4,8 +4,9 @@ import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui
     /*import { SparkleFilled } from "@fluentui/react-icons";*/
 }
 import gb from "./grupo-bimbo-logo.png";
-
 import styles from "./Chat.module.css";
+
+import imagf from "./imagf.png";
 
 import { chatApi, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
@@ -134,13 +135,29 @@ const Chat = () => {
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
             <div className={styles.chatRoot}>
+                <img
+                    src={imagf}
+                    height="350"
+                    style={{
+                        marginTop: "-120px",
+                        marginLeft: "55px",
+                        marginRight: "-360px",
+                        borderRadius: "150px",
+                        flexDirection: "column",
+                        display: "flex"
+                    }}
+                />{" "}
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
-                            <img src={gb} alt="Diamond" height="120" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with GB AI expert</h1>
-                            <h2 className={styles.chatEmptyStateSubtitle}>Just ask or try an example</h2>
+                            <img src={gb} alt="Diamond" height="150" />
+                            <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "80px" }}>
+                                Chat with GB AI expert
+                            </h1>
+                            <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "120px" }}>
+                                Ask any question about the global polices or try an example
+                            </h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
                     ) : (
@@ -162,6 +179,7 @@ const Chat = () => {
                                     </div>
                                 </div>
                             ))}
+
                             {isLoading && (
                                 <>
                                     <UserChatMessage message={lastQuestionRef.current} />
@@ -191,7 +209,6 @@ const Chat = () => {
                         />
                     </div>
                 </div>
-
                 {answers.length > 0 && activeAnalysisPanelTab && (
                     <AnalysisPanel
                         className={styles.chatAnalysisPanel}
@@ -202,7 +219,6 @@ const Chat = () => {
                         activeTab={activeAnalysisPanelTab}
                     />
                 )}
-
                 <Panel
                     headerText="Configure answer generation"
                     isOpen={isConfigPanelOpen}

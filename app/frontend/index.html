@@ -1,13 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-      <link rel="icon" type="image/x-icon" href="/dna_icon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GB chatGPT</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
-  </body>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@5.0.15/material-ui.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Chat GPT</title>
+
+    <link rel="SHORTCUT ICON" href="./favicon.svg" type="image/x-icon">
+    
+    <!-- msal.min.js can be used in the place of msal.js; included msal.js to make debug easy -->
+    <script type="text/javascript" src="https://alcdn.msauth.net/lib/1.4.4/js/msal.js" integrity="sha384-fTmwCjhRA6zShZq8Ow5ZkbWwmgp8En46qW6yWpNEkp37MkV50I/V2wjzlEkQ8eWD" crossorigin="anonymous"></script>
+    <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.1.3/js/msal.min.js"></script>
+    <!-- msal.js with a fallback to backup CDN -->
+    <script type="text/javascript">
+      if(typeof Msal === 'undefined')document.write(unescape("%3Cscript src='https://alcdn.msftauth.net/lib/1.4.4/js/msal.js' type='text/javascript' %3E%3C/script%3E"));
+    </script>
+
+    <!-- adding Bootstrap 4 for UI components  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+  <body class="layout">
+    <!-- THIS PART IS FOR HEADER TO PAGE -->
+      <header class="primary-background header">
+        <div class="headerNavLeftMargin">
+            <img src="./src/assets/powered_dna_blanco.png" alt="DnAlogo" aria-label="Link to DnA AI Apps" height="27%" width="27%" />
+        </div>
+        <div class="navbar-textHeader">
+            <b>GRUPO BIMBO CHATGPT</b>
+        </div>
+        <div class="headerRightText">
+            <b>VERSION BETA</b>
+        </div>
+      </header>
+    <!--FIN THIS PART IS FOR HEADER TO PAGE -->
+    <div class="content-body">
+      <img src="./src/pages/chat/grupo-bimbo-logo.png" alt="DnAlogo" aria-label="Link to DnA AI Apps" height="20%" width="20%" />
+      <br />
+      <h1 class="textContent" >
+        Chat with GB AI expert
+      </h1>
+      <br />
+      <h2 class="textContent2">
+        please log in to continue browsing
+      </h2>
+      <br />
+      <!-- <div class="buttonSingIn">
+        <button type="button" id="signIn" class="btn btn-secondary" onclick="signIn()">Sign In</button>
+      </div> -->
+      <div class="bskcontainer">
+        <button class="loginbutton"  id="signIn" onclick="signIn()"">
+          <object type="image/svg+xml" data="https://s3-eu-west-1.amazonaws.com/cdn-testing.web.bas.ac.uk/scratch/bas-style-kit/ms-pictogram/ms-pictogram.svg" class="xicon"></object> 
+          Sign in with Microsoft
+        </button>
+      </div>
+    </div>
+  </body> 
+
+  <!-- importing bootstrap.js and supporting js libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- importing app scripts (load order is important) -->
+  <script type="text/javascript" src="./authConfig.js"></script>
+  <script type="text/javascript" src="./graphConfig.js"></script>
+  <script type="text/javascript" src="./ui.js"></script>
+  
+  <!-- replace next line with authRedirect.js if you would like to use the redirect flow -->
+  <!-- <script type="text/javascript" src="./authRedirect.js"></script>   -->
+  <script type="text/javascript" src="./authPopup.js"></script>
+  <script type="text/javascript" src="./graph.js"></script>
+</body>
+
 </html>

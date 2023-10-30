@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "ui.js", "graphConfig.js", "graph.js", "authRedirect.js", "authPopup.js", "authConfig.js"]
 }

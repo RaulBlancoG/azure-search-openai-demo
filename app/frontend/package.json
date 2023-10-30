@@ -8,11 +8,21 @@
     "build": "tsc && vite build",
     "watch": "tsc && vite build --watch"
   },
+  "keywords": [
+    "ms-identity",
+    "azure-ad",
+    "javascript",
+    "spa",
+    "node.js",
+    "msal.js"
+  ],
   "dependencies": {
+    "@azure/msal-browser": "^3.3.0",
     "@fluentui/react": "^8.105.3",
     "@fluentui/react-icons": "^2.0.195",
     "@react-spring/web": "^9.7.1",
     "dompurify": "^3.0.1",
+    "msal": "^1.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",

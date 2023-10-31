@@ -1,8 +1,22 @@
+// Importa tu msalConfig y otras dependencias si es necesario
+import { msalConfig, loginRequest } from './authConfig.js'; // Asegúrate de que la ruta sea correcta
+
+// Esta función asignará la función signIn al botón con el ID "signIn"
+function asignarEventoSignIn() {
+  const botonSignIn = document.getElementById('signIn');
+  if (botonSignIn) {
+    botonSignIn.addEventListener('click', signIn);
+  }
+}
+
+// Llama a la función asignarEventoSignIn cuando se cargue el documento
+document.addEventListener('DOMContentLoaded', asignarEventoSignIn);
+
 // Create the main myMSALObj instance
 // configuration parameters are located at authConfig.js
 const myMSALObj = new Msal.UserAgentApplication(msalConfig);
 
-function signIn() {
+export function signIn() {
   myMSALObj.loginPopup(loginRequest)
     .then(loginResponse => {
       console.log("id_token acquired at: " + new Date().toString());

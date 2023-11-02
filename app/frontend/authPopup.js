@@ -24,6 +24,8 @@ export function signIn() {
       
       if (myMSALObj.getAccount()) {
         showWelcomeMessage(myMSALObj.getAccount());
+        // Redireccionar a la página "index_copy.html"
+        window.location.href = "policy.html";
       }
     }).catch(error => {
       console.log(error);

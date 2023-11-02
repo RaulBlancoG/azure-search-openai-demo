@@ -6,7 +6,7 @@ const msalConfig = {
   auth: {
     clientId: "84577f1a-cfbb-430f-8b19-627f579c439d",
     authority: "https://login.microsoftonline.com/973ba820-4a58-4246-84bf-170e50b3152a",
-    redirectUri: "https://policyai.bimboconnect.com/",
+    redirectUri: "https://policyai.bimboconnect",
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored

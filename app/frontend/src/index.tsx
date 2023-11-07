@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-
+import Layout from "./pages/layout/Layout";
 import { PublicClientApplication, EventType, EventMessage, AuthenticationResult } from "@azure/msal-browser";
 
 import config from "./Config.example";

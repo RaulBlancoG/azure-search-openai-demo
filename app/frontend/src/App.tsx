@@ -33,11 +33,13 @@ export default function App({ pca }: AppProps): JSX.Element {
                     <Container>
                         <ErrorMessage />
                         <Routes>
-                            <Route path="/" element={<Layout />} />
-                            <Route index element={<Chat />} />
-                            <Route path="/one" element={<OneShot />} />
-                            <Route path="/no" element={<NoPage />} />
-                            {/**</Route> */}
+                            <Route path="/" element={<Layout />}>
+                                <Route index element={<Chat />} />
+                                <Route path="/one" element={<OneShot />} />
+                                <Route path="/no" element={<NoPage />} />
+                                <Route path="/cal" element={<Calendar />} />
+                                {/**</Route> */}
+                            </Route>
                         </Routes>
                     </Container>
                 </Router>

@@ -42,8 +42,8 @@ export default function NavBar() {
                         </NavItem>
                         <AuthenticatedTemplate>
                             <NavItem>
-                                <RouterNavLink to="/layout" className="nav-link">
-                                    Layout
+                                <RouterNavLink to="/cal" className="nav-link">
+                                    Calendar
                                 </RouterNavLink>
                             </NavItem>
 

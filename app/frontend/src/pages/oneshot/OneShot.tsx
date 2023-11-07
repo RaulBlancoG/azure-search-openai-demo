@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Checkbox, ChoiceGroup, IChoiceGroupOption, Panel, DefaultButton, Spinner, TextField, SpinButton } from "@fluentui/react";
 
 import styles from "./OneShot.module.css";
-
+import { AuthenticatedTemplate } from "@azure/msal-react";
 import { askApi, Approaches, AskResponse, AskRequest } from "../../api";
 import { Answer, AnswerError } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
@@ -130,121 +130,123 @@ const OneShot = () => {
     ];
 
     return (
-        <div className={styles.oneshotContainer}>
-            <div className={styles.oneshotTopSection}>
-                <SettingsButton className={styles.settingsButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
-                <h1 className={styles.oneshotTitle}>Ask your data</h1>
-                <div className={styles.oneshotQuestionInput}>
-                    <QuestionInput
-                        placeholder="Example: Is there an ethics policy at grupo bimbo?"
-                        disabled={isLoading}
-                        onSend={question => makeApiRequest(question)}
-                    />
+        <AuthenticatedTemplate>
+            <div className={styles.oneshotContainer}>
+                <div className={styles.oneshotTopSection}>
+                    <SettingsButton className={styles.settingsButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
+                    <h1 className={styles.oneshotTitle}>Ask your data</h1>
+                    <div className={styles.oneshotQuestionInput}>
+                        <QuestionInput
+                            placeholder="Example: Is there an ethics policy at grupo bimbo?"
+                            disabled={isLoading}
+                            onSend={question => makeApiRequest(question)}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className={styles.oneshotBottomSection}>
-                {isLoading && <Spinner label="Generating answer" />}
-                {!lastQuestionRef.current && <ExampleList onExampleClicked={onExampleClicked} />}
-                {!isLoading && answer && !error && (
-                    <div className={styles.oneshotAnswerContainer}>
-                        <Answer
+                <div className={styles.oneshotBottomSection}>
+                    {isLoading && <Spinner label="Generating answer" />}
+                    {!lastQuestionRef.current && <ExampleList onExampleClicked={onExampleClicked} />}
+                    {!isLoading && answer && !error && (
+                        <div className={styles.oneshotAnswerContainer}>
+                            <Answer
+                                answer={answer}
+                                onCitationClicked={x => onShowCitation(x)}
+                                onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab)}
+                                onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab)}
+                            />
+                        </div>
+                    )}
+                    {error ? (
+                        <div className={styles.oneshotAnswerContainer}>
+                            <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
+                        </div>
+                    ) : null}
+                    {activeAnalysisPanelTab && answer && (
+                        <AnalysisPanel
+                            className={styles.oneshotAnalysisPanel}
+                            activeCitation={activeCitation}
+                            onActiveTabChanged={x => onToggleTab(x)}
+                            citationHeight="600px"
                             answer={answer}
-                            onCitationClicked={x => onShowCitation(x)}
-                            onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab)}
-                            onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab)}
+                            activeTab={activeAnalysisPanelTab}
                         />
-                    </div>
-                )}
-                {error ? (
-                    <div className={styles.oneshotAnswerContainer}>
-                        <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
-                    </div>
-                ) : null}
-                {activeAnalysisPanelTab && answer && (
-                    <AnalysisPanel
-                        className={styles.oneshotAnalysisPanel}
-                        activeCitation={activeCitation}
-                        onActiveTabChanged={x => onToggleTab(x)}
-                        citationHeight="600px"
-                        answer={answer}
-                        activeTab={activeAnalysisPanelTab}
-                    />
-                )}
-            </div>
+                    )}
+                </div>
 
-            <Panel
-                headerText="Configure answer generation"
-                isOpen={isConfigPanelOpen}
-                isBlocking={false}
-                onDismiss={() => setIsConfigPanelOpen(false)}
-                closeButtonAriaLabel="Close"
-                onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
-                isFooterAtBottom={true}
-            >
-                <ChoiceGroup
-                    className={styles.oneshotSettingsSeparator}
-                    label="Approach"
-                    options={approaches}
-                    defaultSelectedKey={approach}
-                    onChange={onApproachChange}
-                />
-
-                {(approach === Approaches.RetrieveThenRead || approach === Approaches.ReadDecomposeAsk) && (
-                    <TextField
+                <Panel
+                    headerText="Configure answer generation"
+                    isOpen={isConfigPanelOpen}
+                    isBlocking={false}
+                    onDismiss={() => setIsConfigPanelOpen(false)}
+                    closeButtonAriaLabel="Close"
+                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
+                    isFooterAtBottom={true}
+                >
+                    <ChoiceGroup
                         className={styles.oneshotSettingsSeparator}
-                        defaultValue={promptTemplate}
-                        label="Override prompt template"
-                        multiline
-                        autoAdjustHeight
-                        onChange={onPromptTemplateChange}
+                        label="Approach"
+                        options={approaches}
+                        defaultSelectedKey={approach}
+                        onChange={onApproachChange}
                     />
-                )}
 
-                {approach === Approaches.ReadRetrieveRead && (
-                    <>
+                    {(approach === Approaches.RetrieveThenRead || approach === Approaches.ReadDecomposeAsk) && (
                         <TextField
                             className={styles.oneshotSettingsSeparator}
-                            defaultValue={promptTemplatePrefix}
-                            label="Override prompt prefix template"
+                            defaultValue={promptTemplate}
+                            label="Override prompt template"
                             multiline
                             autoAdjustHeight
-                            onChange={onPromptTemplatePrefixChange}
+                            onChange={onPromptTemplateChange}
                         />
-                        <TextField
-                            className={styles.oneshotSettingsSeparator}
-                            defaultValue={promptTemplateSuffix}
-                            label="Override prompt suffix template"
-                            multiline
-                            autoAdjustHeight
-                            onChange={onPromptTemplateSuffixChange}
-                        />
-                    </>
-                )}
+                    )}
 
-                <SpinButton
-                    className={styles.oneshotSettingsSeparator}
-                    label="Retrieve this many documents from search:"
-                    min={1}
-                    max={50}
-                    defaultValue={retrieveCount.toString()}
-                    onChange={onRetrieveCountChange}
-                />
-                <TextField className={styles.oneshotSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
-                <Checkbox
-                    className={styles.oneshotSettingsSeparator}
-                    checked={useSemanticRanker}
-                    label="Use semantic ranker for retrieval"
-                    onChange={onUseSemanticRankerChange}
-                />
-                <Checkbox
-                    className={styles.oneshotSettingsSeparator}
-                    checked={useSemanticCaptions}
-                    label="Use query-contextual summaries instead of whole documents"
-                    onChange={onUseSemanticCaptionsChange}
-                    disabled={!useSemanticRanker}
-                />
-            </Panel>
-        </div>
+                    {approach === Approaches.ReadRetrieveRead && (
+                        <>
+                            <TextField
+                                className={styles.oneshotSettingsSeparator}
+                                defaultValue={promptTemplatePrefix}
+                                label="Override prompt prefix template"
+                                multiline
+                                autoAdjustHeight
+                                onChange={onPromptTemplatePrefixChange}
+                            />
+                            <TextField
+                                className={styles.oneshotSettingsSeparator}
+                                defaultValue={promptTemplateSuffix}
+                                label="Override prompt suffix template"
+                                multiline
+                                autoAdjustHeight
+                                onChange={onPromptTemplateSuffixChange}
+                            />
+                        </>
+                    )}
+
+                    <SpinButton
+                        className={styles.oneshotSettingsSeparator}
+                        label="Retrieve this many documents from search:"
+                        min={1}
+                        max={50}
+                        defaultValue={retrieveCount.toString()}
+                        onChange={onRetrieveCountChange}
+                    />
+                    <TextField className={styles.oneshotSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+                    <Checkbox
+                        className={styles.oneshotSettingsSeparator}
+                        checked={useSemanticRanker}
+                        label="Use semantic ranker for retrieval"
+                        onChange={onUseSemanticRankerChange}
+                    />
+                    <Checkbox
+                        className={styles.oneshotSettingsSeparator}
+                        checked={useSemanticCaptions}
+                        label="Use query-contextual summaries instead of whole documents"
+                        onChange={onUseSemanticCaptionsChange}
+                        disabled={!useSemanticRanker}
+                    />
+                </Panel>
+            </div>
+        </AuthenticatedTemplate>
     );
 };
 

@@ -8,6 +8,7 @@ import styles from "./Chat.module.css";
 
 import imagf from "./imagf.png";
 
+import { AuthenticatedTemplate } from "@azure/msal-react";
 import { chatApi, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
@@ -129,145 +130,147 @@ const Chat = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.commandsContainer}>
-                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
-            </div>
-            <div className={styles.chatRoot}>
-                <img
-                    src={imagf}
-                    height="350"
-                    style={{
-                        marginTop: "-120px",
-                        marginLeft: "55px",
-                        marginRight: "-360px",
-                        borderRadius: "150px",
-                        flexDirection: "column",
-                        display: "flex"
-                    }}
-                />{" "}
-                <div className={styles.chatContainer}>
-                    {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
-                            {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
-                            <img src={gb} alt="Diamond" height="150" />
-                            <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "80px" }}>
-                                Chat with GB AI expert
-                            </h1>
-                            <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "120px" }}>
-                                Ask any question about the global polices or try an example
-                            </h2>
-                            <ExampleList onExampleClicked={onExampleClicked} />
-                        </div>
-                    ) : (
-                        <div className={styles.chatMessageStream}>
-                            {answers.map((answer, index) => (
-                                <div key={index}>
-                                    <UserChatMessage message={answer[0]} />
-                                    <div className={styles.chatMessageGpt}>
-                                        <Answer
-                                            key={index}
-                                            answer={answer[1]}
-                                            isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                            onCitationClicked={c => onShowCitation(c, index)}
-                                            onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                            onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                            onFollowupQuestionClicked={q => makeApiRequest(q)}
-                                            showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-
-                            {isLoading && (
-                                <>
-                                    <UserChatMessage message={lastQuestionRef.current} />
-                                    <div className={styles.chatMessageGptMinWidth}>
-                                        <AnswerLoading />
-                                    </div>
-                                </>
-                            )}
-                            {error ? (
-                                <>
-                                    <UserChatMessage message={lastQuestionRef.current} />
-                                    <div className={styles.chatMessageGptMinWidth}>
-                                        <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
-                                    </div>
-                                </>
-                            ) : null}
-                            <div ref={chatMessageStreamEnd} />
-                        </div>
-                    )}
-
-                    <div className={styles.chatInput}>
-                        <QuestionInput
-                            clearOnSend
-                            placeholder="The more exact your word or phrase is, the more you will help me find documents related to your question."
-                            disabled={isLoading}
-                            onSend={question => makeApiRequest(question)}
-                        />
-                    </div>
+        <AuthenticatedTemplate>
+            <div className={styles.container}>
+                <div className={styles.commandsContainer}>
+                    <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
+                    <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
                 </div>
-                {answers.length > 0 && activeAnalysisPanelTab && (
-                    <AnalysisPanel
-                        className={styles.chatAnalysisPanel}
-                        activeCitation={activeCitation}
-                        onActiveTabChanged={x => onToggleTab(x, selectedAnswer)}
-                        citationHeight="810px"
-                        answer={answers[selectedAnswer][1]}
-                        activeTab={activeAnalysisPanelTab}
-                    />
-                )}
-                <Panel
-                    headerText="Configure answer generation"
-                    isOpen={isConfigPanelOpen}
-                    isBlocking={false}
-                    onDismiss={() => setIsConfigPanelOpen(false)}
-                    closeButtonAriaLabel="Close"
-                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
-                    isFooterAtBottom={true}
-                >
-                    <TextField
-                        className={styles.chatSettingsSeparator}
-                        defaultValue={promptTemplate}
-                        label="Override prompt template"
-                        multiline
-                        autoAdjustHeight
-                        onChange={onPromptTemplateChange}
-                    />
+                <div className={styles.chatRoot}>
+                    <img
+                        src={imagf}
+                        height="350"
+                        style={{
+                            marginTop: "-120px",
+                            marginLeft: "55px",
+                            marginRight: "-360px",
+                            borderRadius: "150px",
+                            flexDirection: "column",
+                            display: "flex"
+                        }}
+                    />{" "}
+                    <div className={styles.chatContainer}>
+                        {!lastQuestionRef.current ? (
+                            <div className={styles.chatEmptyState}>
+                                {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
+                                <img src={gb} alt="Diamond" height="150" />
+                                <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "80px" }}>
+                                    Chat with GB AI expert
+                                </h1>
+                                <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "120px" }}>
+                                    Ask any question about the global polices or try an example
+                                </h2>
+                                <ExampleList onExampleClicked={onExampleClicked} />
+                            </div>
+                        ) : (
+                            <div className={styles.chatMessageStream}>
+                                {answers.map((answer, index) => (
+                                    <div key={index}>
+                                        <UserChatMessage message={answer[0]} />
+                                        <div className={styles.chatMessageGpt}>
+                                            <Answer
+                                                key={index}
+                                                answer={answer[1]}
+                                                isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
+                                                onCitationClicked={c => onShowCitation(c, index)}
+                                                onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
+                                                onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
+                                                onFollowupQuestionClicked={q => makeApiRequest(q)}
+                                                showFollowupQuestions={useSuggestFollowupQuestions && answers.length - 1 === index}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
 
-                    <SpinButton
-                        className={styles.chatSettingsSeparator}
-                        label="Retrieve this many documents from search:"
-                        min={1}
-                        max={50}
-                        defaultValue={retrieveCount.toString()}
-                        onChange={onRetrieveCountChange}
-                    />
-                    <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSemanticRanker}
-                        label="Use semantic ranker for retrieval"
-                        onChange={onUseSemanticRankerChange}
-                    />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSemanticCaptions}
-                        label="Use query-contextual summaries instead of whole documents"
-                        onChange={onUseSemanticCaptionsChange}
-                        disabled={!useSemanticRanker}
-                    />
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={useSuggestFollowupQuestions}
-                        label="Suggest follow-up questions"
-                        onChange={onUseSuggestFollowupQuestionsChange}
-                    />
-                </Panel>
+                                {isLoading && (
+                                    <>
+                                        <UserChatMessage message={lastQuestionRef.current} />
+                                        <div className={styles.chatMessageGptMinWidth}>
+                                            <AnswerLoading />
+                                        </div>
+                                    </>
+                                )}
+                                {error ? (
+                                    <>
+                                        <UserChatMessage message={lastQuestionRef.current} />
+                                        <div className={styles.chatMessageGptMinWidth}>
+                                            <AnswerError error={error.toString()} onRetry={() => makeApiRequest(lastQuestionRef.current)} />
+                                        </div>
+                                    </>
+                                ) : null}
+                                <div ref={chatMessageStreamEnd} />
+                            </div>
+                        )}
+
+                        <div className={styles.chatInput}>
+                            <QuestionInput
+                                clearOnSend
+                                placeholder="The more exact your word or phrase is, the more you will help me find documents related to your question."
+                                disabled={isLoading}
+                                onSend={question => makeApiRequest(question)}
+                            />
+                        </div>
+                    </div>
+                    {answers.length > 0 && activeAnalysisPanelTab && (
+                        <AnalysisPanel
+                            className={styles.chatAnalysisPanel}
+                            activeCitation={activeCitation}
+                            onActiveTabChanged={x => onToggleTab(x, selectedAnswer)}
+                            citationHeight="810px"
+                            answer={answers[selectedAnswer][1]}
+                            activeTab={activeAnalysisPanelTab}
+                        />
+                    )}
+                    <Panel
+                        headerText="Configure answer generation"
+                        isOpen={isConfigPanelOpen}
+                        isBlocking={false}
+                        onDismiss={() => setIsConfigPanelOpen(false)}
+                        closeButtonAriaLabel="Close"
+                        onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
+                        isFooterAtBottom={true}
+                    >
+                        <TextField
+                            className={styles.chatSettingsSeparator}
+                            defaultValue={promptTemplate}
+                            label="Override prompt template"
+                            multiline
+                            autoAdjustHeight
+                            onChange={onPromptTemplateChange}
+                        />
+
+                        <SpinButton
+                            className={styles.chatSettingsSeparator}
+                            label="Retrieve this many documents from search:"
+                            min={1}
+                            max={50}
+                            defaultValue={retrieveCount.toString()}
+                            onChange={onRetrieveCountChange}
+                        />
+                        <TextField className={styles.chatSettingsSeparator} label="Exclude category" onChange={onExcludeCategoryChanged} />
+                        <Checkbox
+                            className={styles.chatSettingsSeparator}
+                            checked={useSemanticRanker}
+                            label="Use semantic ranker for retrieval"
+                            onChange={onUseSemanticRankerChange}
+                        />
+                        <Checkbox
+                            className={styles.chatSettingsSeparator}
+                            checked={useSemanticCaptions}
+                            label="Use query-contextual summaries instead of whole documents"
+                            onChange={onUseSemanticCaptionsChange}
+                            disabled={!useSemanticRanker}
+                        />
+                        <Checkbox
+                            className={styles.chatSettingsSeparator}
+                            checked={useSuggestFollowupQuestions}
+                            label="Suggest follow-up questions"
+                            onChange={onUseSuggestFollowupQuestionsChange}
+                        />
+                    </Panel>
+                </div>
             </div>
-        </div>
+        </AuthenticatedTemplate>
     );
 };
 

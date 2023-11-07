@@ -1,5 +1,10 @@
+import { AuthenticatedTemplate } from "@azure/msal-react";
 const NoPage = () => {
-    return <h1>404</h1>;
+    return (
+        <AuthenticatedTemplate>
+            <h1>404</h1>;
+        </AuthenticatedTemplate>
+    );
 };
 
 export default NoPage;

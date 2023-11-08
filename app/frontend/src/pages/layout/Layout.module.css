@@ -1,11 +1,12 @@
 .layout {
     display: flex;
     flex-direction: column;
-    height: 99.9%;
+    height: 100%;
+    width: 100%;
     /* background-image: url(imagf.png);*/
     background: linear-gradient(10deg, #213277, #f14b56, #384a92, #e7202c);
     background-size: 400% 400%;
-    position: relative;
+    /*position: relative;*/
     animation: cambiar 9s ease-in-out infinite;
     overflow-x: hidden;
     z-index: 0;

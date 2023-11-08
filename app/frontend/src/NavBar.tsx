@@ -29,9 +29,9 @@ export default function NavBar() {
     const user = app.user || { displayName: "", email: "" };
 
     return (
-        <Navbar bg="dark" variant="dark" expand="md" fixed="top">
+        <>
+            {/**   <Navbar bg="dark" variant="dark" expand="md" fixed="top">
             <Container>
-                <Navbar.Brand href="/">Grupo Bimbo</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse>
                     <Nav className="me-auto" navbar>
@@ -40,19 +40,7 @@ export default function NavBar() {
                                 Home
                             </RouterNavLink>
                         </NavItem>
-                        <AuthenticatedTemplate>
-                            <NavItem>
-                                <RouterNavLink to="/cal" className="nav-link">
-                                    Calendar
-                                </RouterNavLink>
-                            </NavItem>
-
-                            <NavItem>
-                                <RouterNavLink to="/one" className="nav-link">
-                                    a ver
-                                </RouterNavLink>
-                            </NavItem>
-                        </AuthenticatedTemplate>
+                        <AuthenticatedTemplate></AuthenticatedTemplate>
                     </Nav>
                     <Nav className="ms-auto align-items-center" navbar>
                         <AuthenticatedTemplate>
@@ -72,6 +60,8 @@ export default function NavBar() {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+        */}
+        </>
     );
 }
 // </NavBarSnippet>

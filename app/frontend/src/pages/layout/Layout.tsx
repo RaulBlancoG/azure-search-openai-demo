@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Outlet, NavLink, Link } from "react-router-dom";
 import dna_logo from "../../assets/powered_dna_blanco.png";
 import styles from "./Layout.module.css";
-import Swal from "sweetalert2";
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+
+import { AppUser, useAppContext } from "../../AppContext";
+interface UserAvatarProps {
+    user: AppUser;
+}
 
 const Layout = () => {
     const [selectedFeedback, setSelectedFeedback] = useState("Feedback"); // Inicialmente, se selecciona "Feedback"
@@ -23,17 +28,42 @@ const Layout = () => {
         setSelectedFeedback("Feedback");
     };
 
+    const app = useAppContext();
+    const user = app.user || { displayName: "", email: "" };
+
     return (
+        // <AuthenticatedTemplate>
         <div className={styles.layout}>
             <header className={styles.header} role={"banner"}>
                 <div className={styles.headerContainer}>
                     {/* IMAGEN DE DEV*/}
-                    <li className={styles.headerNavLeftMargin}>
+                    <ul className={styles.headerNavLeftMargin}>
                         <img src={dna_logo} alt="DnAlogo" aria-label="Link to DnA AI Apps" height="400px" className={styles.githubLogo} />
-                    </li>
+                    </ul>
 
                     <h3 className={styles.typing}>Grupo Bimbo ChatGPT</h3>
-
+                    <AuthenticatedTemplate></AuthenticatedTemplate>
+                    <AuthenticatedTemplate>
+                        <div>
+                            <ul>
+                                <div>
+                                    <button onClick={app.signOut!}> Cerrar Sesion </button>
+                                </div>
+                                <div>
+                                    {user.displayName} {/**{user.email} */}
+                                </div>
+                            </ul>
+                        </div>
+                    </AuthenticatedTemplate>
+                    <UnauthenticatedTemplate>
+                        <div>
+                            <ul>
+                                <div>
+                                    <button onClick={app.signIn!}> Iniciar Sesion </button>
+                                </div>
+                            </ul>
+                        </div>
+                    </UnauthenticatedTemplate>
                     {/* Botón de Feedback */}
                     <h4 className={styles.headerRightText}>Version BETA</h4>
 
@@ -64,6 +94,7 @@ const Layout = () => {
 
             <Outlet />
         </div>
+        // </AuthenticatedTemplate>
     );
 };
 

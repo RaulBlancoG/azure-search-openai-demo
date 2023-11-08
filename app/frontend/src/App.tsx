@@ -30,18 +30,18 @@ export default function App({ pca }: AppProps): JSX.Element {
             <ProvideAppContext>
                 <Router>
                     <NavBar />
-                    <Container>
-                        <ErrorMessage />
-                        <Routes>
-                            <Route path="/" element={<Layout />}>
-                                <Route index element={<Chat />} />
-                                <Route path="/one" element={<OneShot />} />
-                                <Route path="/no" element={<NoPage />} />
-                                <Route path="/cal" element={<Calendar />} />
-                                {/**</Route> */}
-                            </Route>
-                        </Routes>
-                    </Container>
+                    {/** <Container>*/}
+                    <ErrorMessage />
+                    <Routes>
+                        <Route path="/" element={<Layout />}>
+                            <Route index element={<Chat />} />
+                            <Route path="/one" element={<OneShot />} />
+                            <Route path="/no" element={<NoPage />} />
+                            <Route path="/cal" element={<Calendar />} />
+                            {/**</Route> */}
+                        </Route>
+                    </Routes>
+                    {/*  </Container>*/}
                 </Router>
             </ProvideAppContext>
         </MsalProvider>

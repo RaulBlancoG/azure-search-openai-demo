@@ -10,6 +10,7 @@ import config from "./Config.example";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import Login from "./login";
 
 // <MsalInstanceSnippet>
 const msalInstance = new PublicClientApplication({

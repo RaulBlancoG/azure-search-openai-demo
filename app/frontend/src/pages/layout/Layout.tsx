@@ -43,27 +43,8 @@ const Layout = () => {
 
                     <h3 className={styles.typing}>Grupo Bimbo ChatGPT</h3>
                     <AuthenticatedTemplate></AuthenticatedTemplate>
-                    <AuthenticatedTemplate>
-                        <div>
-                            <ul>
-                                <div>
-                                    <button onClick={app.signOut!}> Cerrar Sesion </button>
-                                </div>
-                                <div>
-                                    {user.displayName} {/**{user.email} */}
-                                </div>
-                            </ul>
-                        </div>
-                    </AuthenticatedTemplate>
-                    <UnauthenticatedTemplate>
-                        <div>
-                            <ul>
-                                <div>
-                                    <button onClick={app.signIn!}> Iniciar Sesion </button>
-                                </div>
-                            </ul>
-                        </div>
-                    </UnauthenticatedTemplate>
+
+                    <UnauthenticatedTemplate></UnauthenticatedTemplate>
                     {/* Botón de Feedback */}
                     <h4 className={styles.headerRightText}>Version BETA</h4>
 
@@ -89,6 +70,24 @@ const Layout = () => {
                             ))}
                         </select>
                     </div>
+                    <AuthenticatedTemplate>
+                        <div>
+                            <ul>
+                                <div>
+                                    Welcome:
+                                    <br />
+                                    {user.displayName}
+                                    {/**{user.email} */}
+                                </div>
+                                <div>
+                                    <button onClick={app.signOut!} style={{ marginLeft: "50px" }}>
+                                        Sign Out
+                                    </button>
+                                    <br />
+                                </div>
+                            </ul>
+                        </div>
+                    </AuthenticatedTemplate>
                 </div>
             </header>
 

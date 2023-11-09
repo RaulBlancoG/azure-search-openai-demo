@@ -279,20 +279,23 @@ const Chat = () => {
                 </div>
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
-                <img src={gb} alt="Diamond" height="20%" width="20%" style={{ marginLeft: "720px", marginTop: "70px" }} />
-                <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
-                    Chat with GB AI expert
-                </h1>
-                <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
-                    <div>
-                        <button onClick={app.signIn!} style={{ height: "50px" }}>
-                            <h2 className={styles.chatEmptyStateSubtitless} style={{ marginLeft: "10px", marginTop: "5px", marginRight: "10px" }}>
-                                <img src={mic} height="26" style={{ marginTop: "5px", color: "black" }} />
-                                Sign In
-                            </h2>
-                        </button>
-                    </div>
-                </h2>
+                <div className={styles.chatEmptyState1}>
+                    <img src={gb} alt="Diamond" height="150" />
+                    {/**<img src={gb} alt="Diamond" height="20%" width="20%" style={{ marginLeft: "720px", marginTop: "70px" }} /> */}
+                    <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
+                        Chat with GB AI expert
+                    </h1>
+                    <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
+                        <div>
+                            <button onClick={app.signIn!} style={{ height: "50px" }}>
+                                <h2 className={styles.chatEmptyStateSubtitless} style={{ marginLeft: "10px", marginTop: "5px", marginRight: "10px" }}>
+                                    <img src={mic} height="26" style={{ marginTop: "5px", color: "black" }} />
+                                    Sign In
+                                </h2>
+                            </button>
+                        </div>
+                    </h2>
+                </div>
             </UnauthenticatedTemplate>
         </>
     );

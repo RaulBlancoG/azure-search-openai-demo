@@ -5,11 +5,8 @@ import { Checkbox, Panel, DefaultButton, TextField, SpinButton } from "@fluentui
 }
 import gb from "./grupo-bimbo-logo.png";
 import styles from "./Chat.module.css";
-
 import imagf from "./imagf.png";
-import mic from "../../../src/assets/mic.png";
 
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { chatApi, Approaches, AskResponse, ChatRequest, ChatTurn } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
@@ -18,11 +15,9 @@ import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
-
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { AppUser, useAppContext } from "../../AppContext";
-interface UserAvatarProps {
-    user: AppUser;
-}
+
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [promptTemplate, setPromptTemplate] = useState<string>("");
@@ -146,27 +141,25 @@ const Chat = () => {
                     <div className={styles.chatRoot}>
                         <img
                             src={imagf}
-                            height="350"
+                            className={styles.contentImagePolicy}
                             style={{
+                                width: "15vw",
+                                height: "30vh", // Haz que la altura se ajuste automáticamente
                                 marginTop: "-120px",
-                                marginLeft: "55px",
-                                marginRight: "-360px",
-                                borderRadius: "150px",
-                                flexDirection: "column",
-                                display: "flex"
+                                marginLeft: "5%", // Ajusta según tus necesidades
+                                marginRight: "-10%", // Ajusta según tus necesidades
+                                borderRadius: "50%",
+                                position: "sticky"
                             }}
-                        />{" "}
+                            alt="Descripción de la imagen"
+                        />
                         <div className={styles.chatContainer}>
                             {!lastQuestionRef.current ? (
                                 <div className={styles.chatEmptyState}>
                                     {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
-                                    <img src={gb} alt="Diamond" height="150" />
-                                    <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "80px" }}>
-                                        Chat with GB AI expert
-                                    </h1>
-                                    <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "120px" }}>
-                                        Ask any question about the global polices or try an example
-                                    </h2>
+                                    <img src={gb} alt="Diamond" height="120" />
+                                    <h1 className={styles.chatEmptyStateTitle}>Chat with GB AI expert</h1>
+                                    <h2 className={styles.chatEmptyStateSubtitle}>Ask any question about the global polices or try an example</h2>
                                     <ExampleList onExampleClicked={onExampleClicked} />
                                 </div>
                             ) : (
@@ -188,7 +181,6 @@ const Chat = () => {
                                             </div>
                                         </div>
                                     ))}
-
                                     {isLoading && (
                                         <>
                                             <UserChatMessage message={lastQuestionRef.current} />
@@ -218,6 +210,7 @@ const Chat = () => {
                                 />
                             </div>
                         </div>
+
                         {answers.length > 0 && activeAnalysisPanelTab && (
                             <AnalysisPanel
                                 className={styles.chatAnalysisPanel}
@@ -228,6 +221,7 @@ const Chat = () => {
                                 activeTab={activeAnalysisPanelTab}
                             />
                         )}
+
                         <Panel
                             headerText="Configure answer generation"
                             isOpen={isConfigPanelOpen}
@@ -279,20 +273,27 @@ const Chat = () => {
                 </div>
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
-                <div className={styles.chatEmptyState1}>
+                <div className={styles.chatEmptyState}>
                     <img src={gb} alt="Diamond" height="150" />
                     {/**<img src={gb} alt="Diamond" height="20%" width="20%" style={{ marginLeft: "720px", marginTop: "70px" }} /> */}
-                    <h1 className={styles.chatEmptyStateTitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
-                        Chat with GB AI expert
-                    </h1>
-                    <h2 className={styles.chatEmptyStateSubtitle} style={{ marginLeft: "170px", marginTop: "50px" }}>
+                    <h1 className={styles.chatEmptyStateTitle}>Chat with GB AI expert</h1>
+                    <h2 className={styles.chatEmptyStateSubtitle}>
                         <div>
-                            <button onClick={app.signIn!} style={{ height: "50px" }}>
-                                <h2 className={styles.chatEmptyStateSubtitless} style={{ marginLeft: "10px", marginTop: "5px", marginRight: "10px" }}>
-                                    <img src={mic} height="26" style={{ marginTop: "5px", color: "black" }} />
+                            {/* <button onClick={app.signIn!}>
+                                <h2 className={styles.chatEmptyStateSubtitle}>
+                                    * <img src={mic} height="26" style={{ marginTop: "5px", color: "black" }} />
                                     Sign In
                                 </h2>
-                            </button>
+                            </button> */}
+                            <div className={styles.bskcontainer}>
+                                <button onClick={app.signIn!} className={styles.loginbutton}>
+                                    <object
+                                        type="image/svg+xml"
+                                        data="https://s3-eu-west-1.amazonaws.com/cdn-testing.web.bas.ac.uk/scratch/bas-style-kit/ms-pictogram/ms-pictogram.svg"
+                                    />
+                                    Sign in with Microsoft
+                                </button>
+                            </div>
                         </div>
                     </h2>
                 </div>

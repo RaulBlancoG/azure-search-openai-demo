@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
-    /* background-image: url(imagf.png);*/
     background: linear-gradient(10deg, #213277, #f14b56, #384a92, #e7202c);
     background-size: 400% 400%;
     /*position: relative;*/
@@ -11,6 +9,7 @@
     overflow-x: hidden;
     z-index: 0;
 }
+
 @keyframes cambiar {
     0% {
         background-position: 0 50%;
@@ -24,9 +23,10 @@
         background-position: 0 50%;
     }
 }
+
 .header {
     background-color: black;
-    color: white;
+    color: #f2f2f2;
 }
 
 .headerContainer {
@@ -40,10 +40,15 @@
 .headerTitleContainer {
     display: flex;
     align-items: center;
-    margin-right: 40px;
-    color: white;
+    margin-right: 20%;
+    color: #f2f2f2;
     text-decoration: none;
-    font-size: 3vh;
+    animation: appear 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    color: rgb(249, 243, 243);
+    font-size: 1.2vw; /* Tamaño de fuente en relación con el ancho de la vista */
 }
 
 .headerLogo {
@@ -89,7 +94,7 @@
 .headerRightText {
     font-weight: 500;
     margin-left: 40px;
-    font-size: 2.3vh;
+    font-size: 16px;
     text-decoration: underline;
 }
 
@@ -99,33 +104,44 @@
 }
 
 .githubLogo {
-    height: 60px;
+    height: 50px;
 }
 
 /* Estilo para el botón de Feedback */
 .feedbackButton {
-    background-color: #333; /* Fondo gris oscuro */
-    color: white; /* Color del texto */
-    padding: 10px 20px;
+    background-color: red;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    width: 20%;
+    font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    position: relative; /* Permite posicionar el ícono desplegable */
+    display: inline-block;
 }
 
 .feedbackButton:hover {
-    background-color: #555; /* Color de fondo cuando se pasa el ratón por encima */
+    background-color: #ff5555;
+}
+.feedbackText {
+    text-align: center;
 }
 /* Estilo para el ícono desplegable del select */
 .feedbackButton::after {
     content: "\25BC"; /* Código del carácter Unicode para una flecha hacia abajo */
-    margin-left: 10px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: white;
     font-size: 16px;
 }
+
 /* Estilo para el select */
 .feedbackSelect {
     appearance: none; /* Oculta el control nativo del select */
-    background-color: #e7202c;
+    background-color: red;
     color: white;
     border: none;
     padding: 10px 20px; /* Ajusta el espacio de relleno a tu preferencia */
@@ -136,10 +152,9 @@
 }
 
 /* Estilo para las opciones del select */
-
 .feedbackSelectOption {
-    background-color: #333;
-    color: #ffffff;
+    background-color: white;
+    color: #333;
     padding: 5px 10px;
 }
 
@@ -147,7 +162,6 @@
     background-color: #f0f0f0;
     color: #007bff;
 }
-
 .typing {
     opacity: 0;
     animation: appear 3s forwards;
@@ -155,7 +169,16 @@
     overflow: hidden;
     font-size: 3vh;
     text-align: center;
-    margin-right: 12%;
+    margin-right: 12;
+}
+.typings {
+    opacity: 0;
+    animation: appear 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 3vh;
+    text-align: center;
+    margin-right: 25%;
 }
 
 @keyframes appear {

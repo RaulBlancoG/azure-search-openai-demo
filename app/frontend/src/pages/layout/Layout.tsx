@@ -47,9 +47,8 @@ const Layout = () => {
                         </Link>
                     </UnauthenticatedTemplate>
                     {/* Botón de Feedback */}
-                    <h4 className={styles.headerRightText}>Version BETA</h4>
                     <AuthenticatedTemplate>
-                        <div>
+                        <div className={styles.contentButtonResponsive}>
                             <select
                                 value={selectedFeedback}
                                 onChange={handleFeedbackChange}
@@ -73,19 +72,19 @@ const Layout = () => {
                         </div>
                         <div>
                             <ul>
-                                <div>
+                                <div className={styles.titleWelcome}>
                                     Welcome:
                                     <br />
                                     {user.displayName}
                                     {/**{user.email} */}
                                 </div>
-                                <div>
+                                <div className={styles.buttonOut}>
                                     <button onClick={app.signOut!}>Sign Out</button>
-                                    <br />
                                 </div>
                             </ul>
                         </div>
                     </AuthenticatedTemplate>
+                    <h4 className={styles.headerRightText}>Version BETA</h4>
                 </div>
             </header>
 

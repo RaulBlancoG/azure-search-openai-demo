@@ -141,15 +141,14 @@ const Chat = () => {
                     <div className={styles.chatRoot}>
                         <img
                             src={imagf}
-                            className={styles.contentImagePolicy}
                             style={{
                                 width: "15vw",
                                 height: "30vh", // Haz que la altura se ajuste automáticamente
-                                marginTop: "-120px",
+                                marginTop: "-80px",
                                 marginLeft: "5%", // Ajusta según tus necesidades
                                 marginRight: "-10%", // Ajusta según tus necesidades
                                 borderRadius: "50%",
-                                position: "sticky"
+                                position: "absolute"
                             }}
                             alt="Descripción de la imagen"
                         />

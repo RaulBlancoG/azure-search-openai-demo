@@ -158,7 +158,7 @@ const Chat = () => {
                                     {/*  <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />   */}
                                     <img src={gb} alt="Diamond" height="120" />
                                     <h1 className={styles.chatEmptyStateTitle}>Chat with GB AI expert</h1>
-                                    <h2 className={styles.chatEmptyStateSubtitle}>Ask any question about the General Global Policies or try an example</h2>
+                                    <h2 className={styles.chatEmptyStateSubtitle}>Ask any question about the Global General Policies or try an example</h2>
                                     <h3 className={styles.chatContactEmptyStateSubtitle}> Contact <a style={{color:'white'}} href="mailto:internalcontroldepartment@grupobimbo.com">internalcontroldepartment@grupobimbo.com</a> for any additional questions </h3>
 
                                     <ExampleList onExampleClicked={onExampleClicked} />

@@ -41,28 +41,45 @@ parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output
 args = parser.parse_args()
 
 # Use the current user identity to connect to Azure services unless a key is explicitly set for any of them
-azd_credential = AzureDeveloperCliCredential() if args.tenantid == None else AzureDeveloperCliCredential(tenant_id=args.tenantid, process_timeout=60)
-##, process_timeout=60
+azd_credential = AzureDeveloperCliCredential() if args.tenantid == None else AzureDeveloperCliCredential(tenant_id=args.tenantid)
+print(args.tenantid,"tenant")
+print(AzureDeveloperCliCredential(tenant_id=args.tenantid),"tenant2")
+print(azd_credential, "que tienes")
 default_creds = azd_credential if args.searchkey == None or args.storagekey == None else None
 search_creds = default_creds if args.searchkey == None else AzureKeyCredential(args.searchkey)
+print(args.searchkey,"paso pasoooo")
 if not args.skipblobs:
+    print("primer paso",args.skipblobs)
     storage_creds = default_creds if args.storagekey == None else args.storagekey
 if not args.localpdfparser:
+    print("segundo paso",args.localpdfparser)
     # check if Azure Form Recognizer credentials are provided
+    print(args.formrecognizerservice, "formecognizer pruebas")
     if args.formrecognizerservice == None:
+        print(args.formrecognizerservice, "formecognizer pruebas")
         print("Error: Azure Form Recognizer service is not provided. Please provide formrecognizerservice or use --localpdfparser for local pypdf parser.")
         exit(1)
     formrecognizer_creds = default_creds if args.formrecognizerkey == None else AzureKeyCredential(args.formrecognizerkey)
+    print(args.formrecognizerkey, "formargs.formrecognizerkey")
+print("desde aqui ya no esta haciendo nada 1")
 
 def blob_name_from_file_page(filename, page = 0):
+    print(filename, "filenameeee")
+    print(blob_name_from_file_page,"pruebasassss")    
     if os.path.splitext(filename)[1].lower() == ".pdf":
+        print(os.path.splitext(filename)[1].lower(), "que traesssssss")
         return os.path.splitext(os.path.basename(filename))[0] + f"-{page}" + ".pdf"
     else:
+        print(os.path.basename(filename), "no esta funcionando nada")
+        print(args.storageaccount, "a ver si tare el nombre del storage")
         return os.path.basename(filename)
-
+print(args.storageaccount, "a ver si tare el nombre del storage")
+print(args.container,"contenedor 1111")
 def upload_blobs(filename):
     blob_service = BlobServiceClient(account_url=f"https://{args.storageaccount}.blob.core.windows.net", credential=storage_creds)
+    print(args.storageaccount, "args.storageaccount pruebas")
     blob_container = blob_service.get_container_client(args.container)
+    print(args.container,"contenedor 1111")
     if not blob_container.exists():
         blob_container.create_container()
 
@@ -232,6 +249,9 @@ def create_sections(filename, page_map):
         }
 
 def create_search_index():
+    print(args.verbose,"verboseeee")
+    print(args.index, "indexxxxxxxx")
+    print(args.searchservice, "search service")
     if args.verbose: print(f"Ensuring search index {args.index} exists")
     index_client = SearchIndexClient(endpoint=f"https://{args.searchservice}.search.windows.net/",
                                      credential=search_creds)
@@ -298,6 +318,7 @@ if args.removeall:
 else:
     if not args.remove:
         create_search_index()
+    
     print(f"Processing files...")
     for filename in glob.glob(args.files):
         if args.verbose: print(f"Processing '{filename}'")
